@@ -14,7 +14,7 @@
 
 extern int fourBytes;						// Import from AssemblyModule.s
 extern uint16_t twoBytes;				// Import from AssemblyModule.s
-LinkList *tcbList;
+
 void task1();
 void task2();
 
@@ -47,15 +47,17 @@ int main() {
 	initLinkList();
 	tcbVal = taskMain.sp;
 	saveRegs(tcbVal);
-	pushRegs((uint32_t)*main);
+	//pushRegs((uint32_t)*main);
 	initTcb1();
+	taskAdd = task1Tcb.sp;
 	pushRegs((uint32_t)*task1);
 	initTcb2();
+	taskAdd = task2Tcb.sp;
 	pushRegs((uint32_t)*task2);
 	
-	addLinkList(tcbList,&taskMain);
-	addLinkList(tcbList,&task1Tcb);
-	addLinkList(tcbList,&task2Tcb);
+	addLinkList(&TcbList,&taskMain);
+	addLinkList(&TcbList,&task1Tcb);
+	addLinkList(&TcbList,&task2Tcb);
 	
 	initSysTick();
   //waitForever();

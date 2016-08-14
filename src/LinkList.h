@@ -8,7 +8,7 @@ typedef struct{
 	Tcb* tail;
 	int length;
 }LinkList;
-extern LinkList *tcbList;
+extern LinkList TcbList;
 
 
 void initLinkList();
