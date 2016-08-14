@@ -11,7 +11,7 @@ Tcb taskMain;
  */
 void initMain() {
 	taskMain.name = "Main";
-	taskMain.sp = (uint32_t)&task1Tcb.virtualStack[TASK_STACK_SIZE];
+	taskMain.sp = (uint32_t)&taskMain.virtualStack[TASK_STACK_SIZE];
 	taskMain.nextTcb = NULL;
 	}
 
@@ -23,8 +23,8 @@ void initTcb1() {
 
 void initTcb2() {
 	task2Tcb.name = "task_2";
-	task2Tcb.sp = (uint32_t)&task1Tcb.virtualStack[TASK_STACK_SIZE];
-	task1Tcb.nextTcb=NULL;
+	task2Tcb.sp = (uint32_t)&task2Tcb.virtualStack[TASK_STACK_SIZE];
+	task2Tcb.nextTcb=NULL;
 }
 
 // Study the code in AsssemblyModule.s and take note of what

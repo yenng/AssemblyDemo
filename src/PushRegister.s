@@ -33,4 +33,12 @@ pushRegs				PROC
 								
 								BX			LR
 								ENDP
+									
+getMainSp				PROC
+								EXPORT	getMainSp
+								LDR			R0, =mainSp								
+								STR			R13, [R0]
+								LDR			R0, [R0]
+								BX			LR
+								ENDP
 								END

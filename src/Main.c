@@ -51,9 +51,11 @@ int main() {
 	initTcb1();
 	taskAdd = task1Tcb.sp;
 	pushRegs((uint32_t)*task1);
+	task1Tcb.sp = taskAdd;
 	initTcb2();
 	taskAdd = task2Tcb.sp;
 	pushRegs((uint32_t)*task2);
+	task2Tcb.sp = taskAdd;
 	
 	addLinkList(&TcbList,&taskMain);
 	addLinkList(&TcbList,&task1Tcb);
@@ -61,6 +63,9 @@ int main() {
 	
 	initSysTick();
   //waitForever();
+	taskMain.sp = getMainSp();
+	taskMain.sp = taskMain.sp - 0x44;
+	
 
 	while(1) {
 	}

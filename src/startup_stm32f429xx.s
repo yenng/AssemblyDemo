@@ -249,11 +249,12 @@ SysTick_Handler PROC
 								IMPORT	TcbList
 								PUSH		{R4-R11,LR}
 								LDR			R0,=TcbList
+								MOV			R1,SP
 								LDR			R2,=taskSwitching
 								BLX			R2
 								MOV			SP,R0
 								POP			{R4-R11,PC}
-								BX			LR
+								;BX			LR
 								;EXPORT  SysTick_Handler            [WEAK]
                 ;B  			.	
                 ENDP

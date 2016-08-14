@@ -10,8 +10,9 @@
 	 TcbList.length = 0;
  }
 
-uint32_t taskSwitching(LinkList *list){
+uint32_t taskSwitching(LinkList *list, uint32_t currentSp){
 	Tcb *tcbFirst = removeFirstList(list);
+	tcbFirst->sp	= currentSp;
 	addLinkList(list,tcbFirst);
 	return (list->head->sp);
 }
@@ -40,7 +41,6 @@ Tcb *removeFirstList(LinkList *list){
 		tcbFirst = NULL;
 	else{
 		tcbFirst = list->head;
-		tcbFirst->nextTcb = NULL;
 		list->length--;
 		if(list->tail==list->head){
 			list->head = NULL;
@@ -49,5 +49,7 @@ Tcb *removeFirstList(LinkList *list){
 		else
 			list->head = list->head->nextTcb;
 	}
+	tcbFirst->nextTcb = NULL;
+
 	return tcbFirst;
 }
