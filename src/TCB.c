@@ -1,27 +1,31 @@
  #include "TCB.h"
  #include "PushRegister.h"
+ #include <stdlib.h>
 
 Tcb task1Tcb;
 Tcb task2Tcb;
-Tcb task3Tcb;
+Tcb taskMain;
 
 /**
  * Must call this function first
  */
 void initMain() {
-	task1Tcb.name = "Main";
-	task1Tcb.sp = (uint32_t)&task1Tcb.virtualStack[TASK_STACK_SIZE];
+	taskMain.name = "Main";
+	taskMain.sp = (uint32_t)&task1Tcb.virtualStack[TASK_STACK_SIZE];
+	taskMain.nextTcb = NULL;
 	}
 
 void initTcb1() {
 	task1Tcb.name = "task_1";
 	task1Tcb.sp = (uint32_t)&task1Tcb.virtualStack[TASK_STACK_SIZE];
-	}
+	task1Tcb.nextTcb=NULL;
+}
 
 void initTcb2() {
 	task2Tcb.name = "task_2";
 	task2Tcb.sp = (uint32_t)&task1Tcb.virtualStack[TASK_STACK_SIZE];
-	}
+	task1Tcb.nextTcb=NULL;
+}
 
 // Study the code in AsssemblyModule.s and take note of what
 // how each instruction performs its job. You need that knowledge

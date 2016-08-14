@@ -2,13 +2,19 @@
  #include "TCB.h"
  #include <stdlib.h>
  
- LinkList TcbList;
+ LinkList *TcbList;
  
  void initLinkList(){
-	 TcbList.head = NULL;
-	 TcbList.tail = NULL;
-	 TcbList.length = 0;
+	 TcbList->head = NULL;
+	 TcbList->tail = NULL;
+	 TcbList->length = 0;
  }
+
+uint32_t taskSwitching(LinkList *list){
+	Tcb *tcbFirst = removeFirstList(list);
+	addLinkList(list,tcbFirst);
+	return (list->head->sp);
+}
  
 void addLinkList(LinkList *list, Tcb *tcb1){
 	if(tcb1 == NULL){

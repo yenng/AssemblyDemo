@@ -21,5 +21,4 @@ extern Tcb taskMain;
 void initMain();
 void initTcb1();
 void initTcb2();
-void initTcb3();
 #endif	// __TCB_H__

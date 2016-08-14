@@ -14,7 +14,10 @@
 
 extern int fourBytes;						// Import from AssemblyModule.s
 extern uint16_t twoBytes;				// Import from AssemblyModule.s
-extern LinkList *tcbList;
+LinkList *tcbList;
+void task1();
+void task2();
+
 
 uint32_t variableInC = 0xdeaf;
 uint32_t tcbVal;
@@ -37,23 +40,18 @@ void task2(){
 	}
 }
 
-uint32_t taskSwitching(LinkList *list){
-	Tcb *tcbFirst = removeFirstList(list);
-	addLinkList(list,tcbFirst);
-	return (list->head->sp);
-}
-
-int main() {
-	//pushRegs((uint32_t)*main);
-	
+int main() {	
 	fourBytes = 0xdeadbeef;
 	noArgFunc();
-	initMain(main);
-	tcbVal = task1Tcb.sp;
+	initMain();
+	initLinkList();
+	tcbVal = taskMain.sp;
 	saveRegs(tcbVal);
-	
-	initTcb1(task1);
-	initTcb2(task2);
+	pushRegs((uint32_t)*main);
+	initTcb1();
+	pushRegs((uint32_t)*task1);
+	initTcb2();
+	pushRegs((uint32_t)*task2);
 	
 	addLinkList(tcbList,&taskMain);
 	addLinkList(tcbList,&task1Tcb);
